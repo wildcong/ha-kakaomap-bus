@@ -19,7 +19,7 @@ API_URL = "https://map.kakao.com/bus/stop.json"
 REQUEST_HEADERS = {"User-Agent": "Mozilla/5.0"}
 REQUEST_TIMEOUT = aiohttp.ClientTimeout(total=10)
 MAP_HOSTS = {"map.kakao.com", "m.map.kakao.com"}
-STOP_ID = re.compile(r"BS[0-9]+", re.IGNORECASE)
+STOP_ID = re.compile(r"(?:BS)?[0-9]+", re.IGNORECASE)
 
 
 class InvalidStopID(ValueError):

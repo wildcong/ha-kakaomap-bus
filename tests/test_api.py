@@ -11,23 +11,25 @@ from custom_components.kakaomap_bus import api
 
 
 @pytest.mark.parametrize(
-    "value",
+    "value,expected",
     [
-        "BS12345",
-        " bs12345 ",
-        "https://map.kakao.com/?target=bus&busStopId=BS12345",
-        "https://m.map.kakao.com/?busstopid=BS12345",
+        ("BS12345", "BS12345"),
+        (" bs12345 ", "BS12345"),
+        ("12345", "12345"),
+        (" 11120681011 ", "11120681011"),
+        ("https://map.kakao.com/?target=bus&busStopId=BS12345", "BS12345"),
+        ("https://m.map.kakao.com/?busstopid=BS12345", "BS12345"),
+        ("https://map.kakao.com/?map_type=TYPE_MAP&busStopId=11120681011", "11120681011"),
     ],
 )
-def test_stop_id_and_map_link(value):
-    assert api.parse_stop_id(value) == "BS12345"
+def test_stop_id_and_map_link(value, expected):
+    assert api.parse_stop_id(value) == expected
 
 
 @pytest.mark.parametrize(
     "value",
     [
         "",
-        "12345",
         "BS12345&x=1",
         "https://example.com/?busStopId=BS12345",
         "https://map.kakao.com.evil.test/?busStopId=BS12345",
